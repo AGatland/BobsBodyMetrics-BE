@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BobsBodyMetrics-BE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9fd35da2e8c363ac6321709297f9c5f7fb892fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("BobsBodyMetrics-BE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BobsBodyMetrics-BE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
