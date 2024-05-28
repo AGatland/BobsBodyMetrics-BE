@@ -1,6 +1,7 @@
 using bobsbodymetrics.Data;
 using bobsbodymetrics.Interfaces;
 using bobsbodymetrics.Models;
+using bobsbodymetrics.Repository;
 using bobsbodymetrics.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -8,17 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-{
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-});
 
 // ADD DB
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -36,6 +26,29 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequiredLength = 12;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Register repositories
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IActivityPBRepository, ActivityPBRepository>();
+builder.Services.AddScoped<IUserGoalRepository, UserGoalRepository>();
+builder.Services.AddScoped<IFriendRepository, FriendRepository>();
+
+// Register services
+builder.Services.AddScoped<ProfileService>();
+builder.Services.AddScoped<ActivityService>();
+builder.Services.AddScoped<ActivityPBService>();
+builder.Services.AddScoped<UserGoalService>();
+builder.Services.AddScoped<FriendService>();
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
+
+// Swagger and stuff
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Authentication
 builder.Services.AddAuthentication(options =>

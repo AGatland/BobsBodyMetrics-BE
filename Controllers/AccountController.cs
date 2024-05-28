@@ -4,7 +4,7 @@ using bobsbodymetrics.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.Controllers
+namespace bobsbodymetrics.Controllers
 {
     [Route("account")]
     [ApiController]
