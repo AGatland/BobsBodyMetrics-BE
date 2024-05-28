@@ -33,5 +33,50 @@ public class UserGoalService(IUserGoalRepository userGoalRepository)
             EndDate = ug.EndDate
         });
     }
+
+    public IEnumerable<UserGoalDto> GetAllUserGoals()
+    {
+        return _userGoalRepository.GetAll().Select(ug => new UserGoalDto
+        {
+            UserGoalId = ug.UserGoalId,
+            UserId = ug.UserId,
+            ActivityType = ug.ActivityType,
+            Distance = ug.Distance,
+            StartDate = ug.StartDate,
+            EndDate = ug.EndDate
+        });
+    }
+
+    public UserGoalDto GetUserGoalById(int id)
+    {
+        UserGoal ug = _userGoalRepository.GetById(id);
+        return new UserGoalDto
+        {
+            UserGoalId = ug.UserGoalId,
+            UserId = ug.UserId,
+            ActivityType = ug.ActivityType,
+            Distance = ug.Distance,
+            StartDate = ug.StartDate,
+            EndDate = ug.EndDate
+        };
+    }
+
+    public void CreateUserGoal(UserGoal userGoal)
+    {
+        _userGoalRepository.Insert(userGoal);
+        _userGoalRepository.Save();
+    }
+
+    public void UpdateUserGoal(UserGoal userGoal)
+    {
+        _userGoalRepository.Update(userGoal);
+        _userGoalRepository.Save();
+    }
+
+    public void DeleteUserGoal(int id)
+    {
+        _userGoalRepository.Delete(id);
+        _userGoalRepository.Save();
+    }
 }
 

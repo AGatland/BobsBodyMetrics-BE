@@ -52,5 +52,55 @@ public class ActivityService(IActivityRepository activityRepository)
             AvgHeartRate = a.AvgHeartRate
         });
     }
+
+    public IEnumerable<ActivityDto> GetAllActivities()
+    {
+        return _activityRepository.GetAll().Select(a => new ActivityDto
+        {
+            ActivityId = a.ActivityId,
+            UserId = a.UserId,
+            DateLogged = a.DateLogged,
+            Type = a.Type,
+            Duration = a.Duration,
+            Distance = a.Distance,
+            CaloriesBurned = a.CaloriesBurned,
+            AvgHeartRate = a.AvgHeartRate
+        });
+    }
+
+    public ActivityDto GetActivityById(int id)
+    {
+        Activity a = _activityRepository.GetById(id);
+        
+        return new ActivityDto
+        {
+            ActivityId = a.ActivityId,
+            UserId = a.UserId,
+            DateLogged = a.DateLogged,
+            Type = a.Type,
+            Duration = a.Duration,
+            Distance = a.Distance,
+            CaloriesBurned = a.CaloriesBurned,
+            AvgHeartRate = a.AvgHeartRate
+        };
+    }
+
+    public void CreateActivity(Activity activity)
+    {
+        _activityRepository.Insert(activity);
+        _activityRepository.Save();
+    }
+
+    public void UpdateActivity(Activity activity)
+    {
+        _activityRepository.Update(activity);
+        _activityRepository.Save();
+    }
+
+    public void DeleteActivity(int id)
+    {
+        _activityRepository.Delete(id);
+        _activityRepository.Save();
+    }
 }
 
