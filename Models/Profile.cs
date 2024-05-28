@@ -10,7 +10,7 @@ public enum Gender {
 public class Profile
 {
     public int ProfileId { get; set; }
-    public int UserId { get; set; }
+    public string? UserId { get; set; }
     public string? Name { get; set; }
     public int Age { get; set; }
     public double Weight { get; set; }

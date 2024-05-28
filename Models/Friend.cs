@@ -9,8 +9,8 @@ public enum FriendReqStatus {
 public class Friend
 {
     public int FriendId { get; set;}
-    public int UserId { get; set;}
-    public int FriendUserId { get; set;}
+    public string? UserId { get; set;}
+    public string? FriendUserId { get; set;}
     public FriendReqStatus FriendReqStatus { get; set;}
 
 }
