@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using bobsbodymetrics.Data;
 using bobsbodymetrics.Interfaces;
 using bobsbodymetrics.Models;

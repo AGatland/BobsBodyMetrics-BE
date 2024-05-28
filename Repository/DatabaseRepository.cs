@@ -1,8 +1,6 @@
 ﻿using bobsbodymetrics.Data;
 using bobsbodymetrics.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace bobsbodymetrics.Repository
