@@ -15,10 +15,10 @@ namespace api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ITokenService _tokenService;
-        private readonly SignInManager<AppUser> _signinManager;
-        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager)
+        private readonly SignInManager<IdentityUser> _signinManager;
+        public AccountController(UserManager<IdentityUser> userManager, ITokenService tokenService, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _tokenService = tokenService;
@@ -59,7 +59,7 @@ namespace api.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var appUser = new AppUser
+                var appUser = new IdentityUser
                 {
                     UserName = registerDto.Username,
                     Email = registerDto.Email

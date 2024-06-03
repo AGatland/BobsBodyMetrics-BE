@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace bobsbodymetrics.Service;
 
-public class ProfileService(IProfileRepository profileRepository, UserManager<AppUser> userManager)
+public class ProfileService(IProfileRepository profileRepository, UserManager<IdentityUser> userManager)
 {
     private readonly IProfileRepository _profileRepository = profileRepository;
-    private readonly UserManager<AppUser> _userManager = userManager;
+    private readonly UserManager<IdentityUser> _userManager = userManager;
 
     public PublicProfileDto GetPublicProfile(string username)
     {

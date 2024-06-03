@@ -12,6 +12,7 @@ namespace bobsbodymetrics.Controllers
         private readonly ProfileService _profileService = profileService;
 
         [HttpGet("user/{username}")]
+        [Authorize]
         public IActionResult GetPublicProfile(string username)
         {
             var profile = _profileService.GetPublicProfile(username);
@@ -42,7 +43,6 @@ namespace bobsbodymetrics.Controllers
         }
 
         [HttpGet("list/{userId}")]
-        [Authorize(Policy = "RequireAdminRole")]
         public IActionResult GetAllUserProfilesShortWithFriendStatus(string userId)
         {
             var profiles = _profileService.GetAllUserProfilesShortWithFriendStatus(userId);

@@ -4,7 +4,7 @@ using bobsbodymetrics.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace bobsbodymetrics.Data;
-public class ApplicationDbContext : IdentityDbContext<AppUser>
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
         base(options)
@@ -51,7 +51,7 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
 
         // Configure relationships
         builder.Entity<Profile>()
-            .HasOne<AppUser>()
+            .HasOne<IdentityUser>()
             .WithOne()
             .HasForeignKey<Profile>(p => p.UserId)
             .OnDelete(DeleteBehavior.Cascade);
@@ -63,31 +63,31 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Activity>()
-            .HasOne<AppUser>()
+            .HasOne<IdentityUser>()
             .WithMany()
             .HasForeignKey(a => a.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<ActivityPB>()
-            .HasOne<AppUser>()
+            .HasOne<IdentityUser>()
             .WithMany()
             .HasForeignKey(pb => pb.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<MonthlyGoal>()
-            .HasOne<AppUser>()
+            .HasOne<IdentityUser>()
             .WithMany()
             .HasForeignKey(ug => ug.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Friend>()
-            .HasOne<AppUser>()
+            .HasOne<IdentityUser>()
             .WithMany()
             .HasForeignKey(f => f.UserId)
             .OnDelete(DeleteBehavior.Cascade);
             
         builder.Entity<Friend>()
-            .HasOne<AppUser>()
+            .HasOne<IdentityUser>()
             .WithMany()
             .HasForeignKey(f => f.FriendUserId)
             .OnDelete(DeleteBehavior.Cascade);

@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.Identity;
+
 namespace bobsbodymetrics.Models;
 
 public enum Gender {
@@ -28,5 +30,5 @@ public class Profile
 
 
     // Navigation property to AppUser
-    public AppUser User { get; set; }
+    public IdentityUser User { get; set; }
 }

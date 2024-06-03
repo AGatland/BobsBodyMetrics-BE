@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using bobsbodymetrics.Interfaces;
 using bobsbodymetrics.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 namespace bobsbodymetrics.Service
@@ -21,7 +22,7 @@ namespace bobsbodymetrics.Service
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
         }
-        public string CreateToken(AppUser user)
+        public string CreateToken(IdentityUser user)
         {
             var claims = new List<Claim>
             {
