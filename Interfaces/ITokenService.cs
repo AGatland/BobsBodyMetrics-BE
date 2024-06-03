@@ -1,4 +1,5 @@
 using bobsbodymetrics.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace bobsbodymetrics.Interfaces
 {
