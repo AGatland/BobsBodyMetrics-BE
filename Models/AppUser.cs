@@ -4,6 +4,5 @@ namespace bobsbodymetrics.Models
 {
     public class AppUser : IdentityUser
     {
-        
     }
 }
