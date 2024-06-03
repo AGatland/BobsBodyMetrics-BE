@@ -31,14 +31,14 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IActivityPBRepository, ActivityPBRepository>();
-builder.Services.AddScoped<IUserGoalRepository, UserGoalRepository>();
+builder.Services.AddScoped<IMonthlyGoalRepository, MonthlyGoalRepository>();
 builder.Services.AddScoped<IFriendRepository, FriendRepository>();
 
 // Register services
 builder.Services.AddScoped<ProfileService>();
 builder.Services.AddScoped<ActivityService>();
 builder.Services.AddScoped<ActivityPBService>();
-builder.Services.AddScoped<UserGoalService>();
+builder.Services.AddScoped<MonthlyGoalService>();
 builder.Services.AddScoped<FriendService>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
@@ -53,8 +53,8 @@ builder.Services.AddSwaggerGen();
 // Authentication
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme =
-    options.DefaultChallengeScheme =
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultForbidScheme =
     options.DefaultScheme =
     options.DefaultSignInScheme =
@@ -67,12 +67,15 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
             System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
         )
     };
 });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 

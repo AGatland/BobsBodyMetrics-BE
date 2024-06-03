@@ -14,7 +14,7 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
     public DbSet<Profile> Profiles { get; set; }
     public DbSet<Activity> Activities { get; set; }
     public DbSet<ActivityPB> ActivityPBs { get; set; }
-    public DbSet<UserGoal> UserGoals { get; set; }
+    public DbSet<MonthlyGoal> MonthlyGoals { get; set; }
     public DbSet<Friend> Friends { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -44,11 +44,10 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
             .HasKey(a => a.ActivityId);
         builder.Entity<ActivityPB>()
             .HasKey(pb => pb.ActivityPBId);
-        builder.Entity<UserGoal>()
-            .HasKey(ug => ug.UserGoalId);
+        builder.Entity<MonthlyGoal>()
+            .HasKey(ug => ug.MonthlyGoalId);
         builder.Entity<Friend>()
             .HasKey(f => f.FriendId);
-
 
         // Configure relationships
         builder.Entity<Profile>()
@@ -75,7 +74,7 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
             .HasForeignKey(pb => pb.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Entity<UserGoal>()
+        builder.Entity<MonthlyGoal>()
             .HasOne<AppUser>()
             .WithMany()
             .HasForeignKey(ug => ug.UserId)

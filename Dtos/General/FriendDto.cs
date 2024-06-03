@@ -10,3 +10,8 @@ public class FriendDto
     public FriendReqStatus FriendReqStatus { get; set; }
 }
 
+public class FriendRelationshipDto
+{
+    public string FriendId { get; set; }
+    public FriendReqStatus Status { get; set; }
+}

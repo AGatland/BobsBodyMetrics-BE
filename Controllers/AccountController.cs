@@ -35,12 +35,22 @@ namespace bobsbodymetrics.Controllers
 
             if (!result.Succeeded) return Unauthorized("Username not found and/or password incorrect");
 
+            var token = _tokenService.CreateToken(user);
+
+            HttpContext.Response.Cookies.Append("token", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true, // Set to true in production
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.Now.AddDays(7)
+            });
+
             return Ok(
                 new NewUserDto
                 {
+                    Id = user.Id,
                     UserName = user.UserName,
-                    Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
+                    Email = user.Email
                 }
             );
         }
@@ -66,12 +76,23 @@ namespace bobsbodymetrics.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
+                        var token = _tokenService.CreateToken(appUser);
+
+                        // Set the token as an HTTP-only cookie
+                        HttpContext.Response.Cookies.Append("token", token, new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Secure = true, // Set to true in production
+                            SameSite = SameSiteMode.Strict,
+                            Expires = DateTime.Now.AddDays(7)
+                        });
+
                         return Ok(
                             new NewUserDto
                             {
+                                Id = appUser.Id,
                                 UserName = appUser.UserName,
-                                Email = appUser.Email,
-                                Token = _tokenService.CreateToken(appUser)
+                                Email = appUser.Email
                             }
                         );
                     }

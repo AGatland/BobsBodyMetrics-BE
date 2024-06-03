@@ -31,6 +31,13 @@ namespace bobsbodymetrics.Controllers
             return Ok(activities);
         }
 
+        [HttpGet("user/{userId}/friends")]
+        public IActionResult GetUserActivitiesByFriends(string userId)
+        {
+            var activities = _activityService.GetUserActivitiesByFriends(userId);
+            return Ok(activities);
+        }
+
         [HttpGet]
         public IActionResult GetAllActivities()
         {

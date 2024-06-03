@@ -1,12 +1,14 @@
+using System.Security.Authentication;
 using bobsbodymetrics.Dtos;
 using bobsbodymetrics.Interfaces;
 using bobsbodymetrics.Models;
 
 namespace bobsbodymetrics.Service;
 
-public class ActivityService(IActivityRepository activityRepository)
+public class ActivityService(IActivityRepository activityRepository, MonthlyGoalService monthlyGoalService)
 {
     private readonly IActivityRepository _activityRepository = activityRepository;
+    private readonly MonthlyGoalService _monthlyGoalService = monthlyGoalService;
 
     public IEnumerable<ActivityDto> GetUserActivities(string userId)
     {
@@ -41,6 +43,21 @@ public class ActivityService(IActivityRepository activityRepository)
     public IEnumerable<ActivityDto> GetUserActivitiesByMonth(string userId, DateOnly dateLogged)
     {
         return _activityRepository.GetUserActivitiesByMonth(userId, dateLogged).Select(a => new ActivityDto
+        {
+            ActivityId = a.ActivityId,
+            UserId = a.UserId,
+            DateLogged = a.DateLogged,
+            Type = a.Type,
+            Duration = a.Duration,
+            Distance = a.Distance,
+            CaloriesBurned = a.CaloriesBurned,
+            AvgHeartRate = a.AvgHeartRate
+        });
+    }
+
+    public IEnumerable<ActivityDto> GetUserActivitiesByFriends(string userId)
+    {
+        return _activityRepository.GetUserActivitiesByFriends(userId).Select(a => new ActivityDto
         {
             ActivityId = a.ActivityId,
             UserId = a.UserId,
@@ -89,12 +106,20 @@ public class ActivityService(IActivityRepository activityRepository)
     {
         _activityRepository.Insert(activity);
         _activityRepository.Save();
+
+        // Update the monthly goal progress
+        var currentMonth = (Month)DateTime.Now.Month - 1;
+        _monthlyGoalService.UpdateMonthlyGoalProgress(activity.UserId, currentMonth, activity.Type, activity.Distance);
     }
 
     public void UpdateActivity(Activity activity)
     {
         _activityRepository.Update(activity);
         _activityRepository.Save();
+
+        // Update the monthly goal progress
+        var currentMonth = (Month)DateTime.Now.Month - 1;
+        _monthlyGoalService.UpdateMonthlyGoalProgress(activity.UserId, currentMonth, activity.Type, activity.Distance);
     }
 
     public void DeleteActivity(int id)

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using bobsbodymetrics.Data;
@@ -11,9 +12,11 @@ using bobsbodymetrics.Data;
 namespace BobsBodyMetrics_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240530062619_ChangeGoalUpdateToAddDistance")]
+    partial class ChangeGoalUpdateToAddDistance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace BobsBodyMetrics_BE.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0889778b-0916-4e90-8bfa-8c3493fb3104",
+                            Id = "e2498069-b446-4b20-8f8c-b3b375c70687",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e1f628c4-a94f-4d0f-9166-379b775ce54d",
+                            Id = "c32b4dd5-eb98-42c4-a75e-d7e4357d3d93",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -362,9 +365,6 @@ namespace BobsBodyMetrics_BE.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("integer");
-
-                    b.Property<string>("BgImg")
-                        .HasColumnType("text");
 
                     b.Property<string>("Bio")
                         .IsRequired()

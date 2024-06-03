@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using bobsbodymetrics.Data;
@@ -11,9 +12,11 @@ using bobsbodymetrics.Data;
 namespace BobsBodyMetrics_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240529133322_ChangeUserGoalToMonthlyGoal")]
+    partial class ChangeUserGoalToMonthlyGoal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace BobsBodyMetrics_BE.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0889778b-0916-4e90-8bfa-8c3493fb3104",
+                            Id = "f4bf8ffe-e2af-4751-a6d3-f8ce0b4accd1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e1f628c4-a94f-4d0f-9166-379b775ce54d",
+                            Id = "2b56d337-48c5-4b77-94ec-8764a2bf1a1d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -339,9 +342,6 @@ namespace BobsBodyMetrics_BE.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Progress")
-                        .HasColumnType("double precision");
-
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
@@ -362,9 +362,6 @@ namespace BobsBodyMetrics_BE.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("integer");
-
-                    b.Property<string>("BgImg")
-                        .HasColumnType("text");
 
                     b.Property<string>("Bio")
                         .IsRequired()

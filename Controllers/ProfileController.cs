@@ -31,6 +31,22 @@ namespace bobsbodymetrics.Controllers
             }
             return NotFound();
         }
+
+        [HttpGet("list")]
+        public IActionResult GetAllUserProfilesShortWithUsername()
+        {
+            var profiles = _profileService.GetAllUserProfilesShortWithUsername();
+            return Ok(profiles);
+
+        }
+
+        [HttpGet("list/{userId}")]
+        public IActionResult GetAllUserProfilesShortWithFriendStatus(string userId)
+        {
+            var profiles = _profileService.GetAllUserProfilesShortWithFriendStatus(userId);
+            return Ok(profiles);
+        }
+        
         [HttpGet]
         public IActionResult GetAllProfiles()
         {

@@ -1,3 +1,4 @@
+using bobsbodymetrics.Dtos;
 using bobsbodymetrics.Models;
 
 namespace bobsbodymetrics.Interfaces;
@@ -6,6 +7,8 @@ public interface IProfileRepository : IDatabaseRepository<Profile>
 {
     Profile GetUserProfile(string userId);
     Profile GetUserProfileByUsername(string username);
+    IEnumerable<PublicProfileShortDto> GetAllUserProfilesShortWithUsername();
+    IEnumerable<PublicProfileShortWithFSDto> GetAllUserProfilesShortWithFriendStatus(string userId);
 }
 
 public interface IActivityRepository : IDatabaseRepository<Activity>
@@ -13,6 +16,7 @@ public interface IActivityRepository : IDatabaseRepository<Activity>
     IEnumerable<Activity> GetUserActivities(string userId);
     IEnumerable<Activity> GetUserActivitiesByType(string userId, ActivityType activityType);
     IEnumerable<Activity> GetUserActivitiesByMonth(string userId, DateOnly dateLogged);
+    IEnumerable<Activity> GetUserActivitiesByFriends(string userId);
 
 }
 
@@ -22,11 +26,12 @@ public interface IActivityPBRepository : IDatabaseRepository<ActivityPB>
     IEnumerable<ActivityPB> GetUserPBsByActivityType(string userId, ActivityType activityType);
 }
 
-public interface IUserGoalRepository : IDatabaseRepository<UserGoal>
+public interface IMonthlyGoalRepository : IDatabaseRepository<MonthlyGoal>
 {
-    IEnumerable<UserGoal> GetUserGoals(string userId);
-    IEnumerable<UserGoal> GetUserGoalsByActivityType(string userId, ActivityType activityType);
-    
+    IEnumerable<MonthlyGoal> GetUserMonthlyGoals(string userId);
+    IEnumerable<MonthlyGoal> GetUserMonthlyGoalsByActivityType(string userId, ActivityType activityType);
+    IEnumerable<MonthlyGoal> GetUserMonthlyGoalsByMonth(string userId, Month month);
+    IEnumerable<IGrouping<Month, MonthlyGoal>> GetUserMonthlyGoalsGroupedByMonth(string userId);
 }
 
 public interface IFriendRepository : IDatabaseRepository<Friend>

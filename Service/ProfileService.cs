@@ -21,6 +21,7 @@ public class ProfileService(IProfileRepository profileRepository, UserManager<Ap
                 Name = profile.Name,
                 Age = profile.Age,
                 ProfileImg = profile.ProfileImg,
+                BgImg = profile.BgImg,
                 ProfileColor = profile.ProfileColor,
                 Bio = profile.Bio,
                 Gender = profile.Gender
@@ -40,6 +41,7 @@ public class ProfileService(IProfileRepository profileRepository, UserManager<Ap
                 Name = profile.Name,
                 Age = profile.Age,
                 ProfileImg = profile.ProfileImg,
+                BgImg = profile.BgImg,
                 ProfileColor = profile.ProfileColor,
                 Bio = profile.Bio,
                 Gender = profile.Gender,
@@ -51,6 +53,15 @@ public class ProfileService(IProfileRepository profileRepository, UserManager<Ap
             };
         }
         return null;
+    }
+    public IEnumerable<PublicProfileShortDto> GetAllUserProfilesShortWithUsername()
+    {
+        return _profileRepository.GetAllUserProfilesShortWithUsername();
+    }
+
+    public IEnumerable<PublicProfileShortWithFSDto> GetAllUserProfilesShortWithFriendStatus(string userId)
+    {
+        return _profileRepository.GetAllUserProfilesShortWithFriendStatus(userId);
     }
 
     public IEnumerable<PublicProfileDto> GetAllProfiles()

@@ -22,6 +22,7 @@ public class Profile
     public int Age { get; set; }
     public string Bio { get; set; } = "";
     public string? ProfileImg { get; set; }
+    public string? BgImg { get; set; }
     public string? ProfileColor { get; set; }
     public Gender Gender { get; set; } = Gender.UNSPECIFIED;
 
