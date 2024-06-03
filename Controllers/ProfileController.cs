@@ -1,5 +1,6 @@
 using bobsbodymetrics.Models;
 using bobsbodymetrics.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bobsbodymetrics.Controllers
@@ -41,6 +42,7 @@ namespace bobsbodymetrics.Controllers
         }
 
         [HttpGet("list/{userId}")]
+        [Authorize(Policy = "RequireAdminRole")]
         public IActionResult GetAllUserProfilesShortWithFriendStatus(string userId)
         {
             var profiles = _profileService.GetAllUserProfilesShortWithFriendStatus(userId);

@@ -75,7 +75,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("User", "USER", "ADMIN", "Admin"));
+});
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 
